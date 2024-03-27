@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
-import TopBar from './components/TopBar';
+import { StyleSheet, View, SafeAreaView } from 'react-native'
+import TopBar from './components/TopBar'
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TopBar />
-    </View>
-  );
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#333333',
     alignItems: 'center',
   },
-});
+})
