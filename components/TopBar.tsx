@@ -1,16 +1,21 @@
-import { StyleSheet, View, Text, Pressable, Animated } from 'react-native'
-import { Feather } from '@expo/vector-icons'
-import { AntDesign } from '@expo/vector-icons'
+import { StyleSheet, View, Text, Pressable, Animated, Platform } from 'react-native'
 import { useFonts } from 'expo-font'
 import { useState } from 'react'
+import CoreIcon from './CoreIcon'
+import { CoreIcons } from '../constants'
 
-export default function TopBar() {
+interface TopBarProps {
+  isModalVisible: boolean
+  handleSettingsClick: () => void
+}
+
+export default function TopBar({ isModalVisible, handleSettingsClick }: TopBarProps) {
   const [settingsGearAnimation] = useState(new Animated.Value(0))
   const [plusIconAnimation] = useState(new Animated.Value(0))
   const [fontsLoaded] = useFonts({
     'Outfit-Bold': require('../assets/fonts/Outfit-Bold.ttf'),
   })
-  const gearAnimationDuration = 800
+  const gearAnimationDuration = 500
   const plusAnimationDuration = 250
 
   if (!fontsLoaded) {
@@ -26,6 +31,7 @@ export default function TopBar() {
       // set initial state after finish
       settingsGearAnimation.setValue(0)
     })
+    handleSettingsClick()
   }
 
   const interpolatedGearAnimation = settingsGearAnimation.interpolate({
@@ -54,14 +60,18 @@ export default function TopBar() {
   })
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, Platform.OS == "android" && {marginTop: 40}]}>
       <Animated.View
         style={{
           transform: [{ rotate: interpolatedGearAnimation }],
         }}
       >
         <Pressable onPress={animateSettingsGear}>
-          <Feather name="settings" size={34} color="white" />
+          {isModalVisible ? (
+            <CoreIcon icon={CoreIcons.Cross} size={34} color="red" />
+          ) : (
+            <CoreIcon icon={CoreIcons.Settings} size={34} color="white" />
+          )}
         </Pressable>
       </Animated.View>
       <Text style={styles.heading}>Habby</Text>
@@ -72,7 +82,7 @@ export default function TopBar() {
         }}
       >
         <Pressable onPress={animatePlusIcon}>
-          <AntDesign name="pluscircleo" size={31} color="white" />
+          <CoreIcon icon={CoreIcons.Plus} size={31} color='white'/>
         </Pressable>
       </Animated.View>
     </View>
@@ -86,13 +96,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     width: '95%',
-    marginTop: 40,
   },
   heading: {
     color: 'white',
     fontFamily: 'Outfit-Bold',
     fontSize: 25,
-    paddingTop: 3,
   },
   space: {
     width: '45%',
