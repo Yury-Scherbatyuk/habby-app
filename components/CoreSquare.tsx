@@ -1,17 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Icons, SquareSizes } from '../constants';
-
+import { CoreIconsProps, SquareSizes } from '../constants';
+import CoreIcon from './CoreIcon';
 
 interface CoreSquareType {
     color: string,
     size: SquareSizes,
-    icon: Icons,
-    isHighlited: boolean
+    isHighlited: boolean,
+    icon?: CoreIconsProps,
+    iconSize?: number,
+    iconColor?: string,
 }
 
-export default function CoreSquare({ color, size, icon, isHighlited } : CoreSquareType) {
-
+export default function CoreSquare({ color, size, isHighlited, icon, iconSize, iconColor } : CoreSquareType) {
     const getSize = (size: SquareSizes, color: string, isHighlited: boolean) => {
         switch (size) {
             case SquareSizes.Big:
@@ -28,65 +29,45 @@ export default function CoreSquare({ color, size, icon, isHighlited } : CoreSqua
                     width: 36,
                     height: 36,
                     borderRadius: 9,
-                    backgroundColor: color
+                    backgroundColor: color,
+                    borderWidth: isHighlited ? 1 : 0,
+                    borderColor: "white",
                 }
             case SquareSizes.Small:
                 return {
                     width: 12,
                     height: 12,
                     borderRadius: 3,
-                    backgroundColor: color
+                    backgroundColor: color,
+                    borderWidth: isHighlited ? 0.5 : 0,
+                    borderColor: "white",
                 }
         }
         
     }
 
-    function getIcon(icon:Icons, color:string){
-        if(icon===Icons.Tick){
+    const sizeMap = {
+        [SquareSizes.Big]: 38,
+        [SquareSizes.Medium]: 28,
+        [SquareSizes.Small]: 8
+    };
+
+    const getIcon = (icon: CoreIconsProps | undefined, size: SquareSizes, iconColor:string | undefined, iconSize?:number) => {
+        const getIconSize = sizeMap[size];
+        if(icon && iconColor) {
             return (
-                <View style={{justifyContent:'center', alignItems:'center', maxHeight:'100%'}}>
-                    <Image
-                        source={require('../assets/adaptive-icon.png')} 
-                        style={{ maxWidth:'85%', maxHeight:'85%' }} 
-                    />
-                </View> 
-            )
-        } else if(icon===Icons.Cross) {
-            return (
-                <View style={{justifyContent:'center', alignItems:'center', maxHeight:'100%', maxWidth:'100%'}}>
-                    <Image
-                        source={require('../assets/favicon.png')} 
-                        style={{ maxWidth:'85%', maxHeight:'85%' }} 
-                    />
-                </View> 
+                <View style={{justifyContent:'center', alignItems:'center', height:'100%', width:'100%'}}>
+                    <CoreIcon icon={icon} size={iconSize?iconSize:getIconSize} color={iconColor} />
+                </View>
             )
         }
-    } 
+    }
 
     return(
         <View
             style={getSize(size, color, isHighlited)}
         >
-            {getIcon(icon, color)}
+            {getIcon(icon, size, iconColor, iconSize)}
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    bigSquare: {
-        width: 42,
-        height: 42,
-        borderRadius: 13,
-    },
-    mediumSquare: {
-        width: 36,
-        height: 36,
-        borderRadius: 13,
-    },
-    smallSquare: {
-        width: 12,
-        height: 12,
-        borderRadius: 13,
-    },
-
-})
