@@ -3,11 +3,6 @@ export enum SquareSizes {
     Medium,
     Small
   }
-  
-export enum Icons{
-    Tick,
-    Cross
-}
 
 export enum IconLibraries {
   Feather = "feather",
