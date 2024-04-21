@@ -1,9 +1,10 @@
 import { StyleSheet, View, SafeAreaView } from 'react-native'
-import TopBar from './components/TopBar'
+import TopBar from './src/components/TopBar'
 import { useState } from 'react'
-import SettingsModal from './components/SettingsModal'
-import CoreSquare from './components/CoreSquare'
-import {SquareSizes, CoreIcons } from './constants'
+import SettingsModal from './src/components/SettingsModal'
+import CoreSquare from './src/components/CoreSquare'
+import { SquareSizes, CoreIcons } from './src/constants'
+import { Colors } from './src/colors'
 
 export default function App() {
   const [settingsVisible, setSettingsVisible] = useState(false)
@@ -14,9 +15,19 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TopBar isModalVisible={settingsVisible} handleSettingsClick={handleSettingsClick}/>
-      <SettingsModal settingsVisible={settingsVisible}/>
-      <CoreSquare color="red" size={SquareSizes.Big} icon={CoreIcons.Tick} isHighlited={true} iconSize={228} iconColor="black" />
+      <TopBar
+        isModalVisible={settingsVisible}
+        handleSettingsClick={handleSettingsClick}
+      />
+      <SettingsModal settingsVisible={settingsVisible} />
+      <CoreSquare
+        color={Colors.green.bright}
+        size={SquareSizes.Big}
+        icon={CoreIcons.Tick}
+        isHighlited={true}
+        iconSize={30}
+        iconColor={Colors.white}
+      />
     </SafeAreaView>
   )
 }
@@ -24,7 +35,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333333',
+    backgroundColor: Colors.dark,
     alignItems: 'center',
   },
 })
