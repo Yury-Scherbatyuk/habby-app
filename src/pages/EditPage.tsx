@@ -1,21 +1,47 @@
-import { View, Animated, Text, StyleSheet, TextInput } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  SafeAreaView,
+  Platform,
+  Pressable,
+} from 'react-native'
 import CoreIcon from '../components/CoreIcon'
 import { CoreIcons, SquareSizes } from '../constants'
 import CoreSquare from '../components/CoreSquare'
 import { Colors } from '../colors'
 import React from 'react'
 import { useFonts } from 'expo-font'
+import { NavigationProp } from '@react-navigation/native'
 
-export default function ManageHabbit() {
+interface PageProps {
+  navigation: NavigationProp<any, any>
+}
+
+export default function EditPage({ navigation }: PageProps) {
   const [text, onChangeText] = React.useState('Useless Text')
   const [number, onChangeNumber] = React.useState('')
   const [fontsLoaded] = useFonts({
     'Outfit-Bold': require('../assets/fonts/Outfit-Bold.ttf'),
   })
+
+  if (!fontsLoaded) {
+    return <Text>noooo</Text>
+  }
+
   return (
-    <View>
-      <View style={styles.navContainer}>
-        <CoreIcon icon={CoreIcons.Back} size={34} color="white" />
+    <SafeAreaView style={styles.container}>
+      <View
+        style={[
+          styles.navContainer,
+          Platform.OS == 'android' && { marginTop: 40 },
+        ]}
+      >
+        <Pressable onPress={() => navigation.goBack()}>
+          <CoreIcon icon={CoreIcons.Back} size={34} color="white" />
+        </Pressable>
+
         <Text style={styles.heading}>New Habbit</Text>
         {/* <View style={styles.space} /> */}
         <CoreSquare
@@ -35,11 +61,16 @@ export default function ManageHabbit() {
         /> */}
         {/* <CoreIcon icon={CoreIcons.Back} size={34} color="white" /> */}
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.dark,
+    alignItems: 'center',
+  },
   navContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

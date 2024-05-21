@@ -1,35 +1,29 @@
-import { StyleSheet, View, SafeAreaView } from 'react-native'
-import TopBar from './src/components/TopBar'
-import { useState } from 'react'
-import SettingsModal from './src/components/SettingsModal'
-import CoreSquare from './src/components/CoreSquare'
-import { SquareSizes, CoreIcons } from './src/constants'
-import { Colors } from './src/colors'
-import ManageHabbit from './src/pages/ManageHabbit'
+/* TODO:
+  [x] Routing between screens
+    [ ] Pass data between screens
+  [ ] ManageHabbit screen fields (and their states to pass further)
+  [ ] шрифты загружаются на каждой странице отдельно. 
+        Надо грузить их в одном месте и отображать спинер вместо <p>noooo</p>
+*/
+
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+import HomePage from './src/pages/HomePage'
+import EditPage from './src/pages/EditPage'
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
-  const [settingsVisible, setSettingsVisible] = useState(false)
-
-  const handleSettingsClick = () => {
-    setSettingsVisible(!settingsVisible)
-  }
-
   return (
-    <SafeAreaView style={styles.container}>
-      <TopBar
-        isModalVisible={settingsVisible}
-        handleSettingsClick={handleSettingsClick}
-      />
-      <SettingsModal settingsVisible={settingsVisible} />
-      <ManageHabbit />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="Edit" component={EditPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.dark,
-    alignItems: 'center',
-  },
-})
