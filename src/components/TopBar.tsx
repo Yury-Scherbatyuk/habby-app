@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable, Animated, Platform } from 'react-native'
+import { StyleSheet, View, Text, Pressable, Animated } from 'react-native'
 import { useFonts } from 'expo-font'
 import { useState } from 'react'
 import CoreIcon from './CoreIcon'
@@ -63,7 +63,7 @@ export default function TopBar({ isModalVisible, handleSettingsClick, navigation
   })
 
   return (
-    <View style={[styles.container, Platform.OS == "android" && {marginTop: 40}]}>
+    <View style={styles.container}>
       <Animated.View
         style={{
           transform: [{ rotate: interpolatedGearAnimation }],

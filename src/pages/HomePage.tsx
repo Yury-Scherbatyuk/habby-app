@@ -1,15 +1,15 @@
-import { StyleSheet, View, SafeAreaView } from 'react-native'
-import TopBar from '../components/TopBar'
+import { StyleSheet, View, SafeAreaView, Platform } from 'react-native'
 import { useState } from 'react'
-import SettingsModal from '../components/SettingsModal'
 import { Colors } from '../colors'
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp } from '@react-navigation/native'
+import TopBar from '../components/TopBar'
+import SettingsModal from '../components/SettingsModal'
 
 interface PageProps {
-    navigation: NavigationProp<any,any>
-  }
+  navigation: NavigationProp<any, any>
+}
 
-export default function HomePage({ navigation } : PageProps) {
+export default function HomePage({ navigation }: PageProps) {
   const [settingsVisible, setSettingsVisible] = useState(false)
 
   const handleSettingsClick = () => {
@@ -18,11 +18,14 @@ export default function HomePage({ navigation } : PageProps) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TopBar
-        isModalVisible={settingsVisible}
-        handleSettingsClick={handleSettingsClick}
-        navigation={navigation}
-      />
+      <View style={Platform.OS == 'android' && { marginTop: 40 }}>
+        <TopBar
+          isModalVisible={settingsVisible}
+          handleSettingsClick={handleSettingsClick}
+          navigation={navigation}
+        />
+      </View>
+
       <SettingsModal settingsVisible={settingsVisible} />
     </SafeAreaView>
   )
