@@ -40,5 +40,9 @@ export const CoreIcons: CoreIconsSet = {
   Plus: {
     name: "pluscircleo",
     library: IconLibraries.AntDesign
+  },
+  Back: {
+    name: "chevron-back",
+    library: IconLibraries.Ionicons
   }
 } as const;

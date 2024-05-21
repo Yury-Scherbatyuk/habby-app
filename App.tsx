@@ -5,6 +5,7 @@ import SettingsModal from './src/components/SettingsModal'
 import CoreSquare from './src/components/CoreSquare'
 import { SquareSizes, CoreIcons } from './src/constants'
 import { Colors } from './src/colors'
+import ManageHabbit from './src/pages/ManageHabbit'
 
 export default function App() {
   const [settingsVisible, setSettingsVisible] = useState(false)
@@ -20,14 +21,7 @@ export default function App() {
         handleSettingsClick={handleSettingsClick}
       />
       <SettingsModal settingsVisible={settingsVisible} />
-      <CoreSquare
-        color={Colors.green.bright}
-        size={SquareSizes.Big}
-        icon={CoreIcons.Tick}
-        isHighlited={true}
-        iconSize={30}
-        iconColor={Colors.white}
-      />
+      <ManageHabbit />
     </SafeAreaView>
   )
 }
