@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   SafeAreaView,
   Platform,
   Pressable,
@@ -14,6 +13,7 @@ import { Colors } from '../colors'
 import React from 'react'
 import { useFonts } from 'expo-font'
 import { NavigationProp } from '@react-navigation/native'
+import HabbitFields from '../components/HabbitFields'
 
 interface PageProps {
   navigation: NavigationProp<any, any>
@@ -52,15 +52,9 @@ export default function EditPage({ navigation }: PageProps) {
           iconSize={30}
           iconColor={Colors.white}
         />
-        {/* <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="useless placeholder"
-          keyboardType="numeric"
-        /> */}
-        {/* <CoreIcon icon={CoreIcons.Back} size={34} color="white" /> */}
+        
       </View>
+      <HabbitFields />
     </SafeAreaView>
   )
 }
@@ -85,11 +79,5 @@ const styles = StyleSheet.create({
   },
   space: {
     width: '30%',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
 })
