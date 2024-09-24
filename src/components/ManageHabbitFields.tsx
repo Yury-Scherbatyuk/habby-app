@@ -1,14 +1,13 @@
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  Text,
-  Pressable,
-} from 'react-native'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { TextInput, View, StyleSheet, Button, Text, Pressable } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from '../colors'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp } from "@react-navigation/native";
+
+interface HabbitFieldsProps {
+  navigation: NavigationProp<any, any> 
+}
 
 interface HabbitFieldsProps {
   navigation: NavigationProp<any, any>
@@ -18,7 +17,7 @@ interface HabbitFieldsProps {
   } | null
 }
 
-export default function HabbitFields({ navigation, reminderData }: HabbitFieldsProps) {
+export default function HabbitFields({ navigation }: HabbitFieldsProps) {
   const [descriptionHeight, setDescriptionHeight] = useState(0)
 
   const {
@@ -33,6 +32,8 @@ export default function HabbitFields({ navigation, reminderData }: HabbitFieldsP
     console.log('Submitted Data:', data)
     setSubmittedData(data)
   }
+
+  const [reminderData, setReminderData] = useState<{ time: string; days: string[] } | null>(null);
 
   return (
     <View style={{ width: '100%' }}>
@@ -81,25 +82,23 @@ export default function HabbitFields({ navigation, reminderData }: HabbitFieldsP
             />
           )}
         />
-
-        <Text style={styles.heading}>Reminder</Text>
-        
-        <Pressable
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('TaskScheduler')
-          }
-        >
-          {(!reminderData || reminderData.days.length === 0) && (
-            <Text style={styles.buttonInput}>Select Days</Text>
+        <Pressable 
+        style={styles.button}
+        onPress={() => navigation.navigate('TaskScheduler', {
+      onGoBack: (data: { time: string; days: string[] }) => {
+        // Handle the data returned from TaskScheduler
+        console.log('Data from TaskScheduler:', data);
+        setReminderData(data);
+      },
+    })}>
+          {(!reminderData || reminderData.days.length===0) && (
+            <Text>Select Reminder</Text>
           )}
           {reminderData && reminderData.days.length > 0 && (
-            <View>
-              <Text style={[styles.buttonInput, { color: Colors.green.bright}]}>
-                {reminderData.time} | {reminderData.days.join(', ')}
-              </Text>
-            </View>
-          )}
+        <View>
+          <Text style={{color:"yellow"}}>{reminderData.time} | {reminderData.days.join(', ')}</Text>
+        </View>
+      )}
         </Pressable>
         {errors.lastName && (
           <Text style={styles.errorText}>Error Habbit Description</Text>
@@ -148,14 +147,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
+    height: 50,
     width: 140,
     borderColor: Colors.grayText,
     borderWidth: 1,
     marginBottom: 20,
-
+    marginLeft: 8,
     borderRadius: 10,
-    maxHeight: 90,
-    alignItems: 'center',
-    justifyContent: 'center'
+    maxHeight: 80,
+    alignItems:'center',
+    justifyContent:'center'
   },
 })
