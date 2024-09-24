@@ -14,6 +14,10 @@ import { NavigationProp } from '@react-navigation/native'
 
 interface HabbitFieldsProps {
   navigation: NavigationProp<any, any>
+  reminderData: {
+    time: string
+    days: string[]
+  } | null
 }
 
 // type Inputs = {
@@ -21,7 +25,7 @@ interface HabbitFieldsProps {
 //   exampleRequired: string
 // }
 
-export default function HabbitFields({ navigation }: HabbitFieldsProps) {
+export default function HabbitFields({ navigation, reminderData }: HabbitFieldsProps) {
   const [descriptionHeight, setDescriptionHeight] = useState(0)
 
   const {
@@ -37,10 +41,10 @@ export default function HabbitFields({ navigation }: HabbitFieldsProps) {
     setSubmittedData(data)
   }
 
-  const [reminderData, setReminderData] = useState<{
-    time: string
-    days: string[]
-  } | null>(null)
+  // const [reminderData, setReminderData] = useState<{
+  //   time: string
+  //   days: string[]
+  // } | null>(null)
 
   return (
     <View style={{ width: '100%' }}>
@@ -91,16 +95,11 @@ export default function HabbitFields({ navigation }: HabbitFieldsProps) {
         />
 
         <Text style={styles.heading}>Reminder</Text>
+        
         <Pressable
           style={styles.button}
           onPress={() =>
-            navigation.navigate('TaskScheduler', {
-              onGoBack: (data: { time: string; days: string[] }) => {
-                // Handle the data returned from TaskScheduler
-                console.log('Data from TaskScheduler:', data)
-                setReminderData(data)
-              },
-            })
+            navigation.navigate('TaskScheduler')
           }
         >
           {(!reminderData || reminderData.days.length === 0) && (
@@ -108,7 +107,7 @@ export default function HabbitFields({ navigation }: HabbitFieldsProps) {
           )}
           {reminderData && reminderData.days.length > 0 && (
             <View>
-              <Text style={{ color: 'yellow' }}>
+              <Text style={[styles.buttonInput, { color: Colors.green.bright}]}>
                 {reminderData.time} | {reminderData.days.join(', ')}
               </Text>
             </View>
@@ -146,7 +145,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: Colors.lightGray,
     padding: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
+    flexGrow: 0.2,
+    
   },
   heading: {
     fontFamily: 'Outfit-Bold',
@@ -159,15 +160,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    height: 50,
     width: 140,
     borderColor: Colors.grayText,
     borderWidth: 1,
     marginBottom: 20,
-    // marginLeft: 8,
+
     borderRadius: 10,
-    maxHeight: 80,
+    maxHeight: 90,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 })

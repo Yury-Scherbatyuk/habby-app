@@ -94,11 +94,17 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
       days: selectedDays,
     }
 
-    if (route?.params?.onGoBack) {
-      route.params.onGoBack(selectedData)
-    }
+    // if (route?.params?.onGoBack) {
+    //   route.params.onGoBack(selectedData)
+    // }
 
-    navigation.goBack()
+    // navigation.goBack()
+    navigation.navigate({
+      name: 'Edit',
+      params: { data: selectedData },
+      merge: true,
+    })
+    console.log("selectedData: ", selectedData)
   }
 
   return (

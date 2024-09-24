@@ -6,22 +6,30 @@ import {
   Platform,
   Pressable,
 } from 'react-native'
+import { useFonts } from 'expo-font'
 import CoreIcon from '../components/CoreIcon'
 import { CoreIcons, SquareSizes } from '../constants'
 import CoreSquare from '../components/CoreSquare'
 import { Colors } from '../colors'
-import React from 'react'
-import { useFonts } from 'expo-font'
-import { NavigationProp } from '@react-navigation/native'
+import { useEffect, useState} from 'react'
+
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import ManageHabbitFields from '../components/ManageHabbitFields'
 
 interface PageProps {
   navigation: NavigationProp<any, any>
+  route: RouteProp<any, any>
 }
 
-export default function EditPage({ navigation }: PageProps) {
-  const [text, onChangeText] = React.useState('Useless Text')
-  const [number, onChangeNumber] = React.useState('')
+export default function EditPage({ navigation, route }: PageProps) {
+  const [text, onChangeText] = useState('Useless Text')
+  const [number, onChangeNumber] = useState('')
+
+  const [reminderData, setReminderData] = useState<{
+    time: string
+    days: string[]
+  } | null>(null)
+
   const [fontsLoaded] = useFonts({
     'Outfit-Bold': require('../assets/fonts/Outfit-Bold.ttf'),
   })
@@ -29,6 +37,12 @@ export default function EditPage({ navigation }: PageProps) {
   if (!fontsLoaded) {
     return <Text>noooo</Text>
   }
+
+  useEffect(() => {
+    if (route.params?.data) {
+      setReminderData(route.params.data)
+    }
+  }, [route.params?.data]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +67,7 @@ export default function EditPage({ navigation }: PageProps) {
           iconColor={Colors.white}
         />
       </View>
-      <ManageHabbitFields navigation={navigation} />
+      <ManageHabbitFields navigation={navigation} reminderData={reminderData} />
     </SafeAreaView>
   )
 }
