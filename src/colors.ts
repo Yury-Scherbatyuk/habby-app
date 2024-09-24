@@ -1,11 +1,11 @@
 export const Colors = {
   dark: '#333333',
   white: '#fff',
-  red: '#EB5757',
-  lightGray: '#666c68',
-  darkGray: '#60564d',
-  grayText: '#a3a3a3',
-  purple: '#BB6BD9',
+  red: "#EB5757",
+  lightGray: "#666c68",
+  darkGray: "#60564d",
+  grayText: "#a3a3a3",
+  purple: "#BB6BD9",
   green: {
     bright: '#6FCF97',
     dull: '#538668',
