@@ -1,48 +1,48 @@
 export enum SquareSizes {
-    Big,
-    Medium,
-    Small
-  }
+  Big,
+  Medium,
+  Small,
+}
 
 export enum IconLibraries {
-  Feather = "feather",
-  AntDesign = "antdesign",
-  Ionicons = "ionicons",
-  Entypo = "entypo"
+  Feather = 'feather',
+  AntDesign = 'antdesign',
+  Ionicons = 'ionicons',
+  Entypo = 'entypo',
 }
 
 interface CoreIconsSet {
-  [key: string]: CoreIconsProps;
+  [key: string]: CoreIconsProps
 }
 
 export interface CoreIconsProps {
-  name: any; // just to not conditionally export Library types
-  library: string; 
+  name: any // just to not conditionally export Library types
+  library: string
 }
 
 export const CoreIcons: CoreIconsSet = {
   Tick: {
-      name: "check",
-      library: IconLibraries.Feather
+    name: 'check',
+    library: IconLibraries.Feather,
   },
   Cross: {
-      name: "close",
-      library: IconLibraries.Ionicons
+    name: 'close',
+    library: IconLibraries.Ionicons,
   },
   Dot: {
-      name: "dot-single",
-      library: IconLibraries.Entypo
+    name: 'dot-single',
+    library: IconLibraries.Entypo,
   },
   Settings: {
-    name: "settings",
-    library: IconLibraries.Feather
+    name: 'settings',
+    library: IconLibraries.Feather,
   },
   Plus: {
-    name: "pluscircleo",
-    library: IconLibraries.AntDesign
+    name: 'pluscircleo',
+    library: IconLibraries.AntDesign,
   },
   Back: {
-    name: "chevron-back",
-    library: IconLibraries.Ionicons
-  }
-} as const;
+    name: 'chevron-back',
+    library: IconLibraries.Ionicons,
+  },
+} as const

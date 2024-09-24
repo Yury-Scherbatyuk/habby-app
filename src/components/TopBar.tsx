@@ -3,15 +3,19 @@ import { useFonts } from 'expo-font'
 import { useState } from 'react'
 import CoreIcon from './CoreIcon'
 import { CoreIcons } from '../constants'
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp } from '@react-navigation/native'
 
 interface TopBarProps {
   isModalVisible: boolean
   handleSettingsClick: () => void
-  navigation: NavigationProp<any,any>
+  navigation: NavigationProp<any, any>
 }
 
-export default function TopBar({ isModalVisible, handleSettingsClick, navigation }: TopBarProps) {
+export default function TopBar({
+  isModalVisible,
+  handleSettingsClick,
+  navigation,
+}: TopBarProps) {
   const [settingsGearAnimation] = useState(new Animated.Value(0))
   const [plusIconAnimation] = useState(new Animated.Value(0))
   const [fontsLoaded] = useFonts({
@@ -85,7 +89,7 @@ export default function TopBar({ isModalVisible, handleSettingsClick, navigation
         }}
       >
         <Pressable onPress={animatePlusIcon}>
-          <CoreIcon icon={CoreIcons.Plus} size={31} color='white'/>
+          <CoreIcon icon={CoreIcons.Plus} size={31} color="white" />
         </Pressable>
       </Animated.View>
     </View>
