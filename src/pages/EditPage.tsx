@@ -13,7 +13,7 @@ import { Colors } from '../colors'
 import React from 'react'
 import { useFonts } from 'expo-font'
 import { NavigationProp } from '@react-navigation/native'
-import HabbitFields from '../components/HabbitFields'
+import ManageHabbitFields from '../components/ManageHabbitFields'
 
 interface PageProps {
   navigation: NavigationProp<any, any>
@@ -53,7 +53,7 @@ export default function EditPage({ navigation }: PageProps) {
           iconColor={Colors.white}
         />
       </View>
-      <HabbitFields navigation={navigation} />
+      <ManageHabbitFields navigation={navigation} />
     </SafeAreaView>
   )
 }

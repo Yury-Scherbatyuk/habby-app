@@ -13,7 +13,7 @@ import { Colors } from '../colors'
 import React from 'react'
 import { useFonts } from 'expo-font'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
-import HabbitFields from '../components/HabbitFields'
+import HabbitFields from '../components/ManageHabbitFields'
 import DateTimePicker from '@react-native-community/datetimepicker' // npm install https://github.com/react-native-datetimepicker/datetimepicker
 
 interface PageProps {
@@ -82,19 +82,6 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
   }
 
   const daysOfWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] //Array for CoreSquares text
-
-  const squares = daysOfWeek.map((day, i) => (
-    <Pressable onPress={() => coreSquaresInteraction(day)}>
-      <CoreSquare
-        key={i}
-        color={coreSquarePressed[day] ? Colors.purple : Colors.lightGray}
-        size={SquareSizes.Big}
-        isHighlited={coreSquarePressed[day] ? true : false}
-        icon={day}
-        iconColor="white"
-      />
-    </Pressable>
-  ))
 
   const selectedDays = Object.keys(coreSquarePressed).filter(
     (day) => coreSquarePressed[day],
@@ -167,7 +154,17 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
             justifyContent: 'space-evenly',
           }}
         >
-          {squares}
+          {daysOfWeek.map((day, i) => (
+            <Pressable onPress={() => coreSquaresInteraction(day)} key={i}>
+              <CoreSquare
+                color={coreSquarePressed[day] ? Colors.purple : Colors.lightGray}
+                size={SquareSizes.Big}
+                isHighlited={coreSquarePressed[day] ? true : false}
+                icon={day}
+                iconColor="white"
+              />
+            </Pressable>
+          ))}
         </View>
       </View>
       {/* time + selector */}

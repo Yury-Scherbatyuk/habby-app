@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import {
   TextInput,
   View,
   StyleSheet,
-  Button,
+  // Button,
   Text,
   Pressable,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from '../colors'
 import { NavigationProp } from '@react-navigation/native'
 
@@ -16,10 +16,10 @@ interface HabbitFieldsProps {
   navigation: NavigationProp<any, any>
 }
 
-type Inputs = {
-  example: string
-  exampleRequired: string
-}
+// type Inputs = {
+//   example: string
+//   exampleRequired: string
+// }
 
 export default function HabbitFields({ navigation }: HabbitFieldsProps) {
   const [descriptionHeight, setDescriptionHeight] = useState(0)
@@ -89,6 +89,8 @@ export default function HabbitFields({ navigation }: HabbitFieldsProps) {
             />
           )}
         />
+
+        <Text style={styles.heading}>Reminder</Text>
         <Pressable
           style={styles.button}
           onPress={() =>
@@ -102,7 +104,7 @@ export default function HabbitFields({ navigation }: HabbitFieldsProps) {
           }
         >
           {(!reminderData || reminderData.days.length === 0) && (
-            <Text>Select Reminder</Text>
+            <Text style={styles.buttonInput}>Select Days</Text>
           )}
           {reminderData && reminderData.days.length > 0 && (
             <View>
@@ -139,6 +141,13 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     maxHeight: 80,
   },
+  buttonInput: {
+    fontFamily: 'Outfit-Bold',
+    fontSize: 17,
+    color: Colors.lightGray,
+    padding: 10,
+    paddingLeft: 10
+  },
   heading: {
     fontFamily: 'Outfit-Bold',
     color: 'white',
@@ -155,7 +164,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.grayText,
     borderWidth: 1,
     marginBottom: 20,
-    marginLeft: 8,
+    // marginLeft: 8,
     borderRadius: 10,
     maxHeight: 80,
     alignItems: 'center',
