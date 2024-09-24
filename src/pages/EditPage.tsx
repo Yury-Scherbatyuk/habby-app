@@ -12,8 +12,8 @@ import { CoreIcons, SquareSizes } from '../constants'
 import CoreSquare from '../components/CoreSquare'
 import { Colors } from '../colors'
 import { useEffect, useState} from 'react'
+
 import { NavigationProp, RouteProp } from '@react-navigation/native'
-import React from 'react'
 import ManageHabbitFields from '../components/ManageHabbitFields'
 
 interface PageProps {
@@ -67,7 +67,7 @@ export default function EditPage({ navigation, route }: PageProps) {
           iconColor={Colors.white}
         />
       </View>
-      <ManageHabbitFields navigation={navigation} />
+      <ManageHabbitFields navigation={navigation} reminderData={reminderData} />
     </SafeAreaView>
   )
 }
