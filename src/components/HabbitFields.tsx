@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { TextInput, View, StyleSheet, Button, Text } from 'react-native'
+import { TextInput, View, StyleSheet, Button, Text, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from '../colors'
+import { NavigationProp } from "@react-navigation/native";
+
+interface HabbitFieldsProps {
+  navigation: NavigationProp<any, any> 
+}
 
 type Inputs = {
   example: string
   exampleRequired: string
 }
 
-export default function HabbitFields() {
+export default function HabbitFields({ navigation }: HabbitFieldsProps) {
   const [descriptionHeight, setDescriptionHeight] = useState(0)
 
   const {
@@ -24,6 +29,8 @@ export default function HabbitFields() {
     console.log('Submitted Data:', data)
     setSubmittedData(data)
   }
+
+  const [reminderData, setReminderData] = useState<{ time: string; days: string[] } | null>(null);
 
   return (
     <View style={{ width: '100%' }}>
@@ -72,10 +79,27 @@ export default function HabbitFields() {
             />
           )}
         />
+        <Pressable 
+        style={styles.button}
+        onPress={() => navigation.navigate('TaskScheduler', {
+      onGoBack: (data: { time: string; days: string[] }) => {
+        // Handle the data returned from TaskScheduler
+        console.log('Data from TaskScheduler:', data);
+        setReminderData(data);
+      },
+    })}>
+          {(!reminderData || reminderData.days.length===0) && (
+            <Text>Select Reminder</Text>
+          )}
+          {reminderData && reminderData.days.length > 0 && (
+        <View>
+          <Text style={{color:"yellow"}}>{reminderData.time} | {reminderData.days.join(', ')}</Text>
+        </View>
+      )}
+        </Pressable>
         {errors.lastName && (
           <Text style={styles.errorText}>Error Habbit Description</Text>
         )}
-
         {/* <Button title="Send" onPress={handleSubmit(onSubmit)} /> */}
       </View>
     </View>
@@ -109,5 +133,17 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     marginBottom: 10,
+  },
+  button: {
+    height: 50,
+    width: 140,
+    borderColor: Colors.grayText,
+    borderWidth: 1,
+    marginBottom: 20,
+    marginLeft: 8,
+    borderRadius: 10,
+    maxHeight: 80,
+    alignItems:'center',
+    justifyContent:'center'
   },
 })

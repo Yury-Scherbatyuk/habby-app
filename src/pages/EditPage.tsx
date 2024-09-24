@@ -31,6 +31,7 @@ export default function EditPage({ navigation }: PageProps) {
   }
 
   return (
+    
     <SafeAreaView style={styles.container}>
       <View
         style={[
@@ -52,9 +53,8 @@ export default function EditPage({ navigation }: PageProps) {
           iconSize={30}
           iconColor={Colors.white}
         />
-        
       </View>
-      <HabbitFields />
+      <HabbitFields navigation={navigation} />
     </SafeAreaView>
   )
 }

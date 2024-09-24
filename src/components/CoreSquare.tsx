@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, Text } from 'react-native'
 import { CoreIconsProps, SquareSizes } from '../constants'
 import CoreIcon from './CoreIcon'
 import { Colors } from '../colors'
@@ -8,9 +8,10 @@ interface CoreSquareType {
   color: string
   size: SquareSizes
   isHighlited: boolean
-  icon?: CoreIconsProps
+  icon?: CoreIconsProps | string
   iconSize?: number
   iconColor?: string
+  text?: string
 }
 
 export default function CoreSquare({
@@ -20,6 +21,7 @@ export default function CoreSquare({
   icon,
   iconSize,
   iconColor,
+  text,
 }: CoreSquareType) {
   const getSize = (size: SquareSizes, color: string, isHighlited: boolean) => {
     switch (size) {
@@ -60,12 +62,24 @@ export default function CoreSquare({
   }
 
   const getIcon = (
-    icon: CoreIconsProps | undefined,
+    icon: CoreIconsProps | undefined | string,
     size: SquareSizes,
     iconColor: string | undefined,
     iconSize?: number,
   ) => {
     const getIconSize = sizeMap[size]
+    if (typeof icon === 'string') { // In case icon is string
+      return <View // <view> same as below
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+      }}
+    >
+      <Text style={{color:Colors.white, fontSize:16}}>{icon}</Text> 
+    </View> 
+    }
     if (icon && iconColor) {
       return (
         <View

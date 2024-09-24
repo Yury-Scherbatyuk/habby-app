@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import HomePage from './src/pages/HomePage'
 import EditPage from './src/pages/EditPage'
+import TaskScheduler from './src/pages/TaskScheduler'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,6 +24,7 @@ export default function App() {
       >
         <Stack.Screen name="Home" component={HomePage} />
         <Stack.Screen name="Edit" component={EditPage} />
+        <Stack.Screen name="TaskScheduler" component={TaskScheduler} />
       </Stack.Navigator>
     </NavigationContainer>
   )
