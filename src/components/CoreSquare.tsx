@@ -68,17 +68,20 @@ export default function CoreSquare({
     iconSize?: number,
   ) => {
     const getIconSize = sizeMap[size]
-    if (typeof icon === 'string') { // In case icon is string
-      return <View // <view> same as below
-      style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%',
-      }}
-    >
-      <Text style={{color:Colors.white, fontSize:16}}>{icon}</Text> 
-    </View> 
+    if (typeof icon === 'string') {
+      // In case icon is string
+      return (
+        <View // <view> same as below
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          <Text style={{ color: Colors.white, fontSize: 16 }}>{icon}</Text>
+        </View>
+      )
     }
     if (icon && iconColor) {
       return (

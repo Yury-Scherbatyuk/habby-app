@@ -45,7 +45,6 @@ export default function EditPage({ navigation, route }: PageProps) {
   }, [route.params?.data]);
 
   return (
-    
     <SafeAreaView style={styles.container}>
       <View
         style={[
