@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import {
   TextInput,
   View,
   StyleSheet,
+  // Button,
   Text,
   Pressable,
 } from 'react-native'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from '../colors'
 import { NavigationProp } from '@react-navigation/native'
 
@@ -17,6 +19,11 @@ interface HabbitFieldsProps {
     days: string[]
   } | null
 }
+
+// type Inputs = {
+//   example: string
+//   exampleRequired: string
+// }
 
 export default function HabbitFields({ navigation, reminderData }: HabbitFieldsProps) {
   const [descriptionHeight, setDescriptionHeight] = useState(0)
@@ -33,6 +40,11 @@ export default function HabbitFields({ navigation, reminderData }: HabbitFieldsP
     console.log('Submitted Data:', data)
     setSubmittedData(data)
   }
+
+  // const [reminderData, setReminderData] = useState<{
+  //   time: string
+  //   days: string[]
+  // } | null>(null)
 
   return (
     <View style={{ width: '100%' }}>
