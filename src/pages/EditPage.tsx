@@ -45,7 +45,6 @@ export default function EditPage({ navigation, route }: PageProps) {
   }, [route.params?.data]);
 
   return (
-    
     <SafeAreaView style={styles.container}>
       <View
         style={[
@@ -68,7 +67,7 @@ export default function EditPage({ navigation, route }: PageProps) {
           iconColor={Colors.white}
         />
       </View>
-      <HabbitFields navigation={navigation} />
+      <ManageHabbitFields navigation={navigation} reminderData={reminderData} />
     </SafeAreaView>
   )
 }
