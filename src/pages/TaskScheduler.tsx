@@ -25,10 +25,6 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
   const [fontsLoaded] = useFonts({
     'Outfit-Bold': require('../assets/fonts/Outfit-Bold.ttf'),
   })
-  {
-    /*------------time picker till fonts */
-  }
-
   const [showPicker, setShowPicker] = React.useState(false)
   const [timePressed, setTimePressed] = React.useState(false)
   const [time, setTime] = React.useState(() => {
@@ -37,7 +33,7 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
     defaultTime.setMinutes(0)
     return defaultTime // Set the default time to 2:00 AM
   })
-  const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}` //Bez etogo time button mozhet vyvoditj vremya bez leading zeros
+  
 
   const [coreSquarePressed, setCoreSquarePressed] = React.useState<{
     [key: string]: boolean
@@ -51,6 +47,8 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
     Su: false,
   }) // pressable dlya dnevnyh coreSquares.
   // inactive days selector const [selectedInactiveDays, setSelectedInactiveDays] = React.useState<'week' | 'calendar'>('week')
+
+  const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}` //Bez etogo time button mozhet vyvoditj vremya bez leading zeros
 
   const onChange = (event: any, selectedTime: any) => {
     if (event.type === 'set' && selectedTime) {
@@ -68,10 +66,6 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
       [day]: !prev[day], // izmenenie cveta coreSquare
     }))
   }
-
-  // const selectInactiveDays = (type: 'week' | 'calendar') => {
-  //   setSelectedInactiveDays(type)
-  // } inactive days selector
 
   const showTimePicker = () => {
     setShowPicker(true) // Show the time picker
@@ -94,11 +88,6 @@ export default function TaskScheduler({ navigation, route }: PageProps) {
       days: selectedDays,
     }
 
-    // if (route?.params?.onGoBack) {
-    //   route.params.onGoBack(selectedData)
-    // }
-
-    // navigation.goBack()
     navigation.navigate({
       name: 'Edit',
       params: { data: selectedData },

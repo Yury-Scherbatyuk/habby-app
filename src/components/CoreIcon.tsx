@@ -6,6 +6,7 @@ import { Entypo } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
 
 import { CoreIconsProps } from '../constants'
+import { IconLibraries } from '../constants'
 
 interface IconProps {
   icon: CoreIconsProps
@@ -16,13 +17,13 @@ interface IconProps {
 export default function CoreIcon({ icon, size, color }: IconProps) {
   const resolveIconLibrary = (library: string) => {
     switch (library) {
-      case 'entypo':
+      case IconLibraries.Entypo:
         return Entypo
-      case 'feather':
+      case IconLibraries.Feather:
         return Feather
-      case 'antdesign':
+      case IconLibraries.AntDesign:
         return AntDesign
-      case 'ionicons':
+      case IconLibraries.Ionicons:
         return Ionicons
       default:
         return AntDesign
